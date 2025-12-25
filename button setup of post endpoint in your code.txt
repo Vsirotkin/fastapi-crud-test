@@ -1,0 +1,28 @@
+// =============== КНОПКА ДЛЯ FASTAPI ===============
+
+	private getFastapiTestButton(nonce: string): string {
+		return /*html*/ `
+		<div style="position: fixed; bottom: 16px; right: 16px; z-index: 10000;">
+			<button id="fastapi-test-btn" style="padding: 8px 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+				🚀 Отправить в FastAPI
+			</button>
+		</div>
+		<script nonce="${nonce}">
+			document.getElementById('fastapi-test-btn').onclick = async () => {
+				try {
+					const res = await fetch('http://localhost:8000/items', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ name: 'Test from AI IDE BAS', description: 'Sent via custom button' })
+					});
+					if (res.ok) alert('✅ Успешно отправлено в FastAPI!');
+					else alert('❌ Ошибка: ' + res.status);
+				} catch (e) {
+					alert('Ошибка сети: ' + e.message);
+				}
+			};
+		</script>
+		`
+	}
+
+	// =============== КОНЕЦ КНОПКИ ===============
